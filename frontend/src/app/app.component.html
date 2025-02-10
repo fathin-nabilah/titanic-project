@@ -1,0 +1,134 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="sidebar col-4 bg-light p-3" style="height: 100vh; width: fit-content; overflow-y: auto;">
+      <h5>Filters</h5>
+
+      <!-- Survival Status -->
+      <div class="mb-3">
+        <label for="survival-status" class="form-label">Survival Status</label>
+        <select
+          id="survival-status"
+          class="form-select"
+          multiple
+          [(ngModel)]="filters.survivalStatus"
+          (change)="onFilterChange({ survivalStatus: filters.survivalStatus })"
+        >
+          <option value="all">All</option>
+          <option value="1">Survived</option>
+          <option value="0">Did Not Survive</option>
+        </select>
+      </div>
+
+      <!-- Age Range -->
+      <div class="mb-3">
+        <label for="age-range" class="form-label">Age Range</label>
+        <input
+          id="age-min"
+          type="number"
+          class="form-control mb-2"
+          min="0"
+          max="100"
+          [(ngModel)]="filters.ageRange.min"
+          (input)="onFilterChange({ ageRange: filters.ageRange })"
+          placeholder="Min Age"
+        />
+        <input
+          id="age-max"
+          type="number"
+          class="form-control"
+          min="0"
+          max="100"
+          [(ngModel)]="filters.ageRange.max"
+          (input)="onFilterChange({ ageRange: filters.ageRange })"
+          placeholder="Max Age"
+        />
+        <div class="form-check">
+          <input
+            id="age-unknown"
+            type="checkbox"
+            class="form-check-input"
+            [(ngModel)]="filters.ageRange.includeNull"
+            (change)="onFilterChange({ ageRange: filters.ageRange })"
+          />
+          <label for="age-unknown" class="form-check-label">Include Unknown</label>
+        </div>
+        <span>Selected Age: {{ filters?.ageRange?.min || 0 }} - {{ filters?.ageRange?.max || 100 }}</span><br>
+        <span>Include Unknown: {{ filters?.ageRange?.includeNull ? 'Yes' : 'No' }}</span>
+      </div>
+
+      <!-- Passenger Class -->
+      <div class="mb-3">
+        <label class="form-label">Passenger Class</label>
+        <div *ngFor="let option of passengerClassOptions">
+          <input
+            type="checkbox"
+            [value]="option.value"
+            [checked]="filters.passengerClass.includes(option.value)"
+            (change)="onCheckboxChange(option.value, 'passengerClass')"
+            class="form-check-input"
+          />
+          <label class="form-check-label">{{ option.label }}</label>
+        </div>
+      </div>
+
+      <!-- Gender -->
+      <div class="mb-3">
+        <label class="form-label">Gender</label>
+        <div *ngFor="let option of genderOptions">
+          <input
+            type="checkbox"
+            [value]="option.value"
+            [checked]="filters.gender.includes(option.value)"
+            (change)="onCheckboxChange(option.value, 'gender')"
+            class="form-check-input"
+          />
+          <label class="form-check-label">{{ option.label }}</label>
+        </div>
+      </div>
+
+      <!-- Embarkation Point -->
+      <div class="mb-3">
+        <label class="form-label">Embarkation Point</label>
+        <div *ngFor="let option of embarkationPointOptions">
+          <input
+            type="checkbox"
+            [value]="option.value"
+            [checked]="filters.embarkationPoint.includes(option.value)"
+            (change)="onCheckboxChange(option.value, 'embarkationPoint')"
+            class="form-check-input"
+          />
+          <label class="form-check-label">{{ option.label }}</label>
+        </div>
+      </div>
+
+      <!-- Travelling Status -->
+      <div class="mb-3">
+        <label class="form-label">Travelling Status</label>
+        <div *ngFor="let option of travellingStatusOptions">
+          <input
+            type="checkbox"
+            [value]="option.value"
+            [checked]="filters.travellingStatus.includes(option.value)"
+            (change)="onCheckboxChange(option.value, 'travellingStatus')"
+            class="form-check-input"
+          />
+          <label class="form-check-label">{{ option.label }}</label>
+        </div>
+      </div>
+    </div>
+    <!-- Main Body -->
+    <div class="main col">
+
+      <h1 class="display-3">Titanic Data Visualization</h1>
+      <!-- Charts -->
+      <app-passenger-chart [filters]="filters"></app-passenger-chart>
+
+      <!-- Passengers Table -->
+      <div class="card p-3 mt-4">
+        <h5>Passengers Data</h5>
+        <app-passenger-table [filters]="filters"></app-passenger-table>
+      </div>
+    </div>
+  </div>
+</div>

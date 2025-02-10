@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card p-3 mt-4" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Total Passengers</h5>
+                  <h1 class="card-text">{{ passengersData.length }}</h1>
+                </div>
+              </div>
+        </div>
+
+        <div class="col">
+            <div class="card p-3 mt-4" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Survival Rate</h5>
+                  <h1 class="card-text">{{ survivalRate }}%</h1>
+                </div>
+              </div>
+        </div>
+
+        <div class="col">
+            <div class="card p-3 mt-4" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Average Age</h5>
+                  <h1 class="card-text">{{ averageAge }}</h1>
+                </div>
+              </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <h5>Passenger Class Distribution</h5>
+        <canvas id="classPieChart"></canvas>
+      </div>
+      <div class="col-md-6">
+        <h5>Survival by Gender</h5>
+        <canvas id="genderBarChart"></canvas>
+      </div>
+    </div>
+</div>
+  
